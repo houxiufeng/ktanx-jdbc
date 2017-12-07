@@ -214,6 +214,14 @@ public class JdbcTemplateDaoImplTest extends BaseTest {
 
         Assert.assertNotNull(user);
         System.out.println(user);
+
+        List<User> list = jdbcDao.createSelect(User.class)
+                .include("userId", "password")
+                .where("userAge", ">", new Object[]{10})
+                .groupBy("userType")
+                .orderBy("userAge").desc()
+                .list();
+        Assert.assertNotNull(list);
     }
 
 

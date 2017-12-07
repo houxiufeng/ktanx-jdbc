@@ -55,6 +55,11 @@ public class CommandTable {
     private List<String> excludeFields;
 
     /**
+     * group by属性
+     */
+    private List<CommandField> groupByFields;
+
+    /**
      * 排序属性
      */
     private List<CommandField> orderByFields;
@@ -84,6 +89,7 @@ public class CommandTable {
         whereFields = new ArrayList<CommandField>();
         includeFields = new ArrayList<String>();
         excludeFields = new ArrayList<String>();
+        groupByFields = new ArrayList<CommandField>();
         orderByFields = new ArrayList<CommandField>();
     }
 
@@ -159,6 +165,15 @@ public class CommandTable {
      */
     public void addOrderByField(CommandField commandField) {
         this.orderByFields.add(commandField);
+    }
+
+    /**
+     * 添加group by属性
+     *
+     * @param commandField
+     */
+    public void addGroupByField(CommandField commandField) {
+        this.groupByFields.add(commandField);
     }
 
     /**
@@ -268,6 +283,10 @@ public class CommandTable {
 
     public String getTableAlias() {
         return tableAlias;
+    }
+
+    public List<CommandField> getGroupByFields() {
+        return groupByFields;
     }
 
     public List<CommandField> getOrderByFields() {

@@ -108,6 +108,8 @@ public class CommandField {
 
         CUSTOM_SELECT_FIELD,
 
+        GROUP_BY,
+
         ORDER_BY,
 
         WHERE_ONLY,

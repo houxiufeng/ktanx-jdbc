@@ -294,6 +294,26 @@ public abstract class AbstractCommandContextBuilder implements CommandContextBui
     }
 
     /**
+     * 构建group by部分sql
+     *
+     * @param commandTable
+     * @return
+     */
+    protected String buildGroupBySql(CommandTable commandTable) {
+        List<CommandField> groupByFields = commandTable.getGroupByFields();
+        if (groupByFields == null || groupByFields.isEmpty()) {
+            return "";
+        }
+        StringBuilder sb = new StringBuilder(" group by ");
+        for (CommandField groupByField : groupByFields) {
+            String columnName = this.getTableAliasColumn(commandTable, groupByField.getName());
+            sb.append(columnName).append(",");
+        }
+        sb.deleteCharAt(sb.length() - 1);
+        return sb.toString();
+    }
+
+    /**
      * 构建order by部分sql
      *
      * @param commandTable

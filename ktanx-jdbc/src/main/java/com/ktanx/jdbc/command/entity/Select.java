@@ -42,6 +42,14 @@ public interface Select<T extends Object> extends ConditionBuilder<Select<T>> {
     Select<T> notSelectEntityField();
 
     /**
+     * 添加 group by属性
+     *
+     * @param fields
+     * @return
+     */
+    Select<T> groupBy(String... fields);
+
+    /**
      * 排序属性
      *
      * @param fields

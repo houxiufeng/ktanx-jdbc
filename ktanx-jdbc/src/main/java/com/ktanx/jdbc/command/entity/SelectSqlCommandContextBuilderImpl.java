@@ -51,8 +51,10 @@ public class SelectSqlCommandContextBuilderImpl extends AbstractCommandContextBu
         CommandContext whereCommandContext = this.buildWhereSql(commandTable);
         command.append(whereCommandContext.getCommand());
 
-        String orderBySql = this.buildOrderBySql(commandTable);
+        String groupBySql = this.buildGroupBySql(commandTable);
+        command.append(groupBySql);
 
+        String orderBySql = this.buildOrderBySql(commandTable);
         command.append(orderBySql);
 
         CommandContext commandContext = getGenericCommandContext(commandTable);

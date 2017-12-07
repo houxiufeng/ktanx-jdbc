@@ -41,6 +41,18 @@ public class SelectImpl<T extends Object> extends AbstractConditionBuilder<Selec
         return this;
     }
 
+    public Select<T> groupBy(String... fields) {
+        for (String field : fields) {
+            CommandField commandField = CommandField.builder()
+                    .name(field)
+                    .orig(CommandField.Orig.MANUAL)
+                    .type(CommandField.Type.GROUP_BY)
+                    .build();
+            this.commandTable.addGroupByField(commandField);
+        }
+        return this;
+    }
+
     public Select<T> orderBy(String... fields) {
         for (String field : fields) {
             CommandField commandField = CommandField.builder()
