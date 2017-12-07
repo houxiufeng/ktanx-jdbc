@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//imesne.com//DTD Mapper 2.0//EN"
+        "http://www.imesne.com/dtd/batis-mapper.dtd">
+<mapper namespace="User">
+
+    <sql id="columns">
+        ${com.ktanx.jdbc.test.model.User},gmt_begin_time
+    </sql>
+    <select id="queryUser">
+        select
+        <include refid="columns"/>
+        from user
+        <where>
+            <if test="params[0] != null">
+                user_type = #{params[0]}
+            </if>
+            <if test="params[1] != null and params[1].loginName != null">
+                and login_name = #{params[1].loginName}
+            </if>
+        </where>
+    </select>
+
+    <select id="queryUserList">
+        select * from user order by user_id desc
+    </select>
+
+</mapper>
