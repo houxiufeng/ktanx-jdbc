@@ -1,4 +1,4 @@
-#iMesne快速开发辅助工具包
+#ktanx 快速开发辅助工具包
 
 本工具包是对平时项目中最常使用到的一些工具类的提取与封装，其核心组件为通用的数据操作层(dao层)。
 
@@ -54,14 +54,14 @@
 ### 添加依赖
 
     <dependency>
-        <groupId>com.imesne.assistant</groupId>
-        <artifactId>imesne-jdbctemplate</artifactId>
+        <groupId>com.ktanx</groupId>
+        <artifactId>ktanx-jdbc-springjdbc</artifactId>
         <version>${version}</version>
     </dependency>
 
 ### 在spring中声明bean
 
-    <bean id="jdbcDao" class="com.imesne.assistant.jdbctemplate.persist.JdbcTemplateDaoImpl">
+    <bean id="jdbcDao" class="com.ktanx.jdbc.springjdbc.persist.JdbcTemplateDaoImpl">
         <property name="dataSource" ref="dataSource"/>
     </bean>
     
@@ -333,12 +333,12 @@ where部分和select一致：
 
     <?xml version="1.0" encoding="UTF-8" ?>
     <!DOCTYPE mapper
-            PUBLIC "-//imesne.com//DTD Mapper 2.0//EN"
-            "http://www.imesne.com/dtd/batis-mapper.dtd">
+            PUBLIC "-//ktanx.com//DTD Mapper 2.0//EN"
+            "http://www.ktanx.com/dtd/batis-mapper.dtd">
     <mapper namespace="User">
     
         <sql id="columns">
-            ${com.imesne.assistant.test.model.User}
+            ${com.ktanx.jdbc.test.model.User}
         </sql>
         <select id="queryUser">
             select 
@@ -366,7 +366,7 @@ where部分和select一致：
             .parameters(new Object[]{"1", user})
             .list();
 
-${com.imesne.assistant.test.model.User}会自动获取该实体类中的所有属性列，当然也可手动按需书写。
+${com.ktanx.jdbc.test.model.User}会自动获取该实体类中的所有属性列，当然也可手动按需书写。
 
 除了传入的参数为Object数组并使用`params[0]`这种方式访问相应的元素外，其它的和mybatis基本一样，mybatis支持的动态sql方式在这里也一样支持,因为他本身就是来源于mybatis。
 
@@ -374,13 +374,13 @@ ${com.imesne.assistant.test.model.User}会自动获取该实体类中的所有�
 
 ##项目结构说明
 
-imesne-common 一些通用的工具类
+ktanx-jdbc 数据操作通用接口封装，这里对于数据库访问没有具体的实现。具体的数据库操作取决于选择的实现方式。
 
-imesne-jdbc 数据操作通用接口封装，这里对于数据库访问没有具体的实现。具体的数据库操作取决于选择的实现方式。
+ktanx-jdbc-springjdbc	数据库访问Spring Jdbc实现。
 
-imesne-jdbctemplate	数据库访问Spring JdbcTemplate实现。
+ktanx-jdbc-dbutils  数据库访问dbutils实现
 
-imesne-test 测试模块 
+ktanx-test 测试模块 
 
 ## 扩展
 
