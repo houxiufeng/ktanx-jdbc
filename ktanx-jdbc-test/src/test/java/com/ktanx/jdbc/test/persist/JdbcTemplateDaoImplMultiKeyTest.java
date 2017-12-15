@@ -27,7 +27,7 @@ public class JdbcTemplateDaoImplMultiKeyTest {
         User user = new User();
         user.setLoginName("liyd123");
         user.setPassword("pass123");
-        Long id = (Long)jdbcDao.insert(user);
+        Long id = (Long) jdbcDao.insert(user);
         System.out.println(id);
 
         UidUser uidUser = new UidUser();

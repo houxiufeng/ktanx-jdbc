@@ -1,5 +1,6 @@
 package com.ktanx.jdbc.dbutils.persist;
 
+import com.ktanx.common.spring.Assert;
 import com.ktanx.jdbc.persist.PersistExecutor;
 import com.ktanx.jdbc.persist.PersistExecutorFactory;
 
@@ -15,7 +16,11 @@ public class DbUtilsPersistExecutorFactory implements PersistExecutorFactory {
 
     private PersistExecutor persistExecutor;
 
-    public DbUtilsPersistExecutorFactory(DataSource dataSource){
+    public DbUtilsPersistExecutorFactory() {
+
+    }
+
+    public DbUtilsPersistExecutorFactory(DataSource dataSource) {
         this.dataSource = dataSource;
     }
 
@@ -25,10 +30,15 @@ public class DbUtilsPersistExecutorFactory implements PersistExecutorFactory {
 
     public PersistExecutor getExecutor() {
         if (this.persistExecutor == null) {
+            Assert.notNull(this.dataSource);
             DbUtilsPersistExecutor dbUtilsPersistExecutor = new DbUtilsPersistExecutor();
             dbUtilsPersistExecutor.setDataSource(this.dataSource);
             this.persistExecutor = dbUtilsPersistExecutor;
         }
         return this.persistExecutor;
+    }
+
+    public void setDataSource(DataSource dataSource) {
+        this.dataSource = dataSource;
     }
 }

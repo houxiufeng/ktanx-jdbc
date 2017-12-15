@@ -46,12 +46,12 @@ public interface ConditionBuilder<C extends ConditionBuilder<C>> extends EntityC
     /**
      * where 属性条件，指定操作符
      *
-     * @param field
-     * @param operator
-     * @param values
-     * @return
+     * @param field    the field
+     * @param operator the operator
+     * @param values   the values
+     * @return c
      */
-    C where(String field, String operator, Object[] values);
+    C where(String field, String operator, Object... values);
 
     /**
      * 属性条件
@@ -74,12 +74,12 @@ public interface ConditionBuilder<C extends ConditionBuilder<C>> extends EntityC
     /**
      * 属性条件，指定操作符
      *
-     * @param field
-     * @param operator
-     * @param values
-     * @return
+     * @param field    the field
+     * @param operator the operator
+     * @param values   the values
+     * @return c
      */
-    C condition(String field, String operator, Object[] values);
+    C condition(String field, String operator, Object... values);
 
 
     /**
@@ -126,12 +126,12 @@ public interface ConditionBuilder<C extends ConditionBuilder<C>> extends EntityC
     /**
      * and 属性条件 指定操作符
      *
-     * @param field
-     * @param operator
-     * @param values
-     * @return
+     * @param field    the field
+     * @param operator the operator
+     * @param values   the values
+     * @return c
      */
-    C and(String field, String operator, Object[] values);
+    C and(String field, String operator, Object... values);
 
     /**
      * or
@@ -161,12 +161,12 @@ public interface ConditionBuilder<C extends ConditionBuilder<C>> extends EntityC
     /**
      * or 属性条件 指定操作符
      *
-     * @param field
-     * @param operator
-     * @param values
-     * @return
+     * @param field    the field
+     * @param operator the operator
+     * @param values   the values
+     * @return c
      */
-    C or(String field, String operator, Object[] values);
+    C or(String field, String operator, Object... values);
 
     /**
      * 括号开始

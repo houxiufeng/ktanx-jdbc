@@ -1,7 +1,8 @@
 package com.ktanx.jdbc.springjdbc.config;
 
 import com.ktanx.jdbc.config.AbstractJdbcEngineConfig;
-import com.ktanx.jdbc.springjdbc.persist.JdbcTemplatePersistExecutor;
+import com.ktanx.jdbc.persist.PersistExecutorFactory;
+import com.ktanx.jdbc.springjdbc.persist.JdbcTemplatePersistExecutorFactory;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.ConnectionCallback;
@@ -24,9 +25,8 @@ public class JdbcTemplateEngineConfigImpl extends AbstractJdbcEngineConfig {
             if (jdbcOperations == null) {
                 jdbcOperations = new JdbcTemplate(dataSource);
             }
-            JdbcTemplatePersistExecutor jdbcTemplatePersistExecutor = new JdbcTemplatePersistExecutor();
-            jdbcTemplatePersistExecutor.setJdbcOperations(jdbcOperations);
-            this.defaultPersistExecutor = jdbcTemplatePersistExecutor;
+            PersistExecutorFactory persistExecutorFactory = new JdbcTemplatePersistExecutorFactory(jdbcOperations);
+            this.defaultPersistExecutor = persistExecutorFactory.getExecutor();
         }
 
         if (StringUtils.isBlank(this.dialect)) {

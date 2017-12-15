@@ -1,7 +1,6 @@
 package com.ktanx.jdbc.test.model;
 
-import com.ktanx.common.model.Pageable;
-import com.ktanx.jdbc.annotation.Transient;
+import com.ktanx.common.model.Model;
 
 import java.util.Date;
 
@@ -11,7 +10,7 @@ import java.util.Date;
  * User: liyd
  * Date: Wed Dec 24 16:46:48 CST 2014
  */
-public class User extends Pageable {
+public class User extends Model {
 
     private static final long serialVersionUID = 8166785520231287816L;
 
@@ -36,16 +35,6 @@ public class User extends Pageable {
     private Integer userAge;
 
     /**
-     * 用户类型
-     */
-    private String userType;
-
-    /**
-     * 邮箱
-     */
-    private String email;
-
-    /**
      * 创建时间
      */
     private Date gmtCreate;
@@ -54,20 +43,6 @@ public class User extends Pageable {
      * 修改时间
      */
     private Date gmtModify;
-
-    /**
-     * 数据库无
-     */
-    private Date gmtBeginTime;
-
-    @Transient
-    public Date getGmtBeginTime() {
-        return gmtBeginTime;
-    }
-
-    public void setGmtBeginTime(Date gmtBeginTime) {
-        this.gmtBeginTime = gmtBeginTime;
-    }
 
     public Long getUserId() {
         return userId;
@@ -93,29 +68,12 @@ public class User extends Pageable {
         this.password = password;
     }
 
-    //    @Column("`USER_AGE`")
     public Integer getUserAge() {
         return userAge;
     }
 
     public void setUserAge(Integer userAge) {
         this.userAge = userAge;
-    }
-
-    public String getUserType() {
-        return userType;
-    }
-
-    public void setUserType(String userType) {
-        this.userType = userType;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
     }
 
     public Date getGmtCreate() {

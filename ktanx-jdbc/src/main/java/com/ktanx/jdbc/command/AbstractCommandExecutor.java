@@ -3,11 +3,13 @@ package com.ktanx.jdbc.command;
 import com.ktanx.common.bean.BeanKit;
 import com.ktanx.common.model.PageList;
 import com.ktanx.common.model.Pager;
+import com.ktanx.jdbc.command.simple.ResultHandler;
 import com.ktanx.jdbc.management.CommandTable;
 import com.ktanx.jdbc.mapping.MappingHandler;
 import com.ktanx.jdbc.page.PageHandler;
 import com.ktanx.jdbc.persist.PersistExecutor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -90,6 +92,38 @@ public abstract class AbstractCommandExecutor {
         pageList.setPager(pager);
 
         return pageList;
+    }
+
+    protected <E> E handleResult(Object result, ResultHandler<E> resultHandler) {
+        if (result == null) {
+            return null;
+        }
+        return resultHandler.handle(result);
+    }
+
+    protected <E> List<E> handleResult(List<?> result, ResultHandler<E> resultHandler) {
+        if (result == null) {
+            return null;
+        }
+        List<E> resultList = new ArrayList<>();
+        for (Object obj : result) {
+            E e = this.handleResult(obj, resultHandler);
+            resultList.add(e);
+        }
+        return resultList;
+    }
+
+    protected <E> PageList<E> handleResult(PageList<?> result, ResultHandler<E> resultHandler) {
+        if (result == null) {
+            return null;
+        }
+        PageList<E> resultList = new PageList<>();
+        for (Object obj : result) {
+            E e = this.handleResult(obj, resultHandler);
+            resultList.add(e);
+        }
+        resultList.setPager(result.getPager());
+        return resultList;
     }
 
 }

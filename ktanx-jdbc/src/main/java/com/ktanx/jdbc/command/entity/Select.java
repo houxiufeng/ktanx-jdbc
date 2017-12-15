@@ -79,6 +79,16 @@ public interface Select<T extends Object> extends ConditionBuilder<Select<T>> {
     Select<T> desc();
 
     /**
+     * 强制处理结果成泛型实体模型
+     * 仅对objectResult、objectList、objectPageList方法结果有效
+     * 调用该方法后将对返回的Object类型(一般为Map<String,Object>)强制转换成泛型实体，
+     * 泛型实体不包含的属性如果继承了{@link com.ktanx.common.model.Model}将放入ExtensionProperty，否则将丢失
+     *
+     * @return
+     */
+    Select<T> forceResultToModel();
+
+    /**
      * count查询
      *
      * @return
@@ -128,7 +138,7 @@ public interface Select<T extends Object> extends ConditionBuilder<Select<T>> {
      *
      * @return
      */
-    Object objectList();
+    List<?> objectList();
 
     /**
      * objectList分页查询

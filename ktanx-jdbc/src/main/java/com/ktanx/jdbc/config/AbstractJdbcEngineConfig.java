@@ -1,5 +1,6 @@
 package com.ktanx.jdbc.config;
 
+import com.ktanx.common.spring.Assert;
 import com.ktanx.jdbc.command.CommandContextBuilder;
 import com.ktanx.jdbc.command.CommandContextBuilderFactory;
 import com.ktanx.jdbc.command.CommandExecutor;
@@ -247,23 +248,29 @@ public abstract class AbstractJdbcEngineConfig implements JdbcEngineConfig {
         //默认CommandExecutorFactory
         Map<Class<? extends CommandExecutor>, CommandExecutorFactory> defaultCommandExecutorFactories = new HashMap<Class<? extends CommandExecutor>, CommandExecutorFactory>();
         SelectCommandExecutorFactory selectCommandExecutorFactory = new SelectCommandExecutorFactory();
+        Assert.isTrue(selectCommandExecutorFactory.getSupportType().length == 1 && selectCommandExecutorFactory.getSupportType()[0] == Object.class);
         defaultCommandExecutorFactories.put(selectCommandExecutorFactory.getExecutorInterface(), selectCommandExecutorFactory);
 
         InsertCommandExecutorFactory insertCommandExecutorFactory = new InsertCommandExecutorFactory();
+        Assert.isTrue(insertCommandExecutorFactory.getSupportType().length == 1 && insertCommandExecutorFactory.getSupportType()[0] == Object.class);
         defaultCommandExecutorFactories.put(insertCommandExecutorFactory.getExecutorInterface(), insertCommandExecutorFactory);
 
         DeleteCommandExecutorFactory deleteCommandExecutorFactory = new DeleteCommandExecutorFactory();
+        Assert.isTrue(deleteCommandExecutorFactory.getSupportType().length == 1 && deleteCommandExecutorFactory.getSupportType()[0] == Object.class);
         defaultCommandExecutorFactories.put(deleteCommandExecutorFactory.getExecutorInterface(), deleteCommandExecutorFactory);
 
         UpdateCommandExecutorFactory updateCommandExecutorFactory = new UpdateCommandExecutorFactory();
+        Assert.isTrue(updateCommandExecutorFactory.getSupportType().length == 1 && updateCommandExecutorFactory.getSupportType()[0] == Object.class);
         defaultCommandExecutorFactories.put(updateCommandExecutorFactory.getExecutorInterface(), updateCommandExecutorFactory);
 
         //native
         NativeExecutorFactory nativeExecutorFactory = new NativeExecutorFactory();
+        Assert.isTrue(nativeExecutorFactory.getSupportType().length == 1 && nativeExecutorFactory.getSupportType()[0] == Object.class);
         defaultCommandExecutorFactories.put(nativeExecutorFactory.getExecutorInterface(), nativeExecutorFactory);
 
         //batis
         BatisExecutorFactory batisExecutorFactory = new BatisExecutorFactory();
+        Assert.isTrue(batisExecutorFactory.getSupportType().length == 1 && batisExecutorFactory.getSupportType()[0] == Object.class);
         defaultCommandExecutorFactories.put(batisExecutorFactory.getExecutorInterface(), batisExecutorFactory);
 
         commandExecutorFactoryMap.put(Object.class, defaultCommandExecutorFactories);
@@ -286,23 +293,29 @@ public abstract class AbstractJdbcEngineConfig implements JdbcEngineConfig {
     protected void initCommandContextBuilderFactories() {
         Map<Class<? extends CommandExecutor>, CommandContextBuilderFactory> defaultCommandContextBuilderFactories = new HashMap<Class<? extends CommandExecutor>, CommandContextBuilderFactory>();
         SelectCommandContextBuilderFactory selectCommandContextBuilderFactory = new SelectCommandContextBuilderFactory();
+        Assert.isTrue(selectCommandContextBuilderFactory.getSupportType().length == 1 && selectCommandContextBuilderFactory.getSupportType()[0] == Object.class);
         defaultCommandContextBuilderFactories.put(selectCommandContextBuilderFactory.getExecutorInterface(), selectCommandContextBuilderFactory);
 
         InsertCommandContextBuilderFactory insertCommandContextBuilderFactory = new InsertCommandContextBuilderFactory();
+        Assert.isTrue(insertCommandContextBuilderFactory.getSupportType().length == 1 && insertCommandContextBuilderFactory.getSupportType()[0] == Object.class);
         defaultCommandContextBuilderFactories.put(insertCommandContextBuilderFactory.getExecutorInterface(), insertCommandContextBuilderFactory);
 
         DeleteCommandContextBuilderFactory deleteCommandContextBuilderFactory = new DeleteCommandContextBuilderFactory();
+        Assert.isTrue(deleteCommandContextBuilderFactory.getSupportType().length == 1 && deleteCommandContextBuilderFactory.getSupportType()[0] == Object.class);
         defaultCommandContextBuilderFactories.put(deleteCommandContextBuilderFactory.getExecutorInterface(), deleteCommandContextBuilderFactory);
 
         UpdateCommandContextBuilderFactory updateCommandContextBuilderFactory = new UpdateCommandContextBuilderFactory();
+        Assert.isTrue(updateCommandContextBuilderFactory.getSupportType().length == 1 && updateCommandContextBuilderFactory.getSupportType()[0] == Object.class);
         defaultCommandContextBuilderFactories.put(updateCommandContextBuilderFactory.getExecutorInterface(), updateCommandContextBuilderFactory);
 
         //native
         NativeExecutorCommandContextBuilderFactory nativeExecutorCommandContextBuilderFactory = new NativeExecutorCommandContextBuilderFactory();
+        Assert.isTrue(nativeExecutorCommandContextBuilderFactory.getSupportType().length == 1 && nativeExecutorCommandContextBuilderFactory.getSupportType()[0] == Object.class);
         defaultCommandContextBuilderFactories.put(nativeExecutorCommandContextBuilderFactory.getExecutorInterface(), nativeExecutorCommandContextBuilderFactory);
 
         //batis
         BatisExecutorCommandContextBuilderFactory batisExecutorCommandContextBuilderFactory = new BatisExecutorCommandContextBuilderFactory();
+        Assert.isTrue(batisExecutorCommandContextBuilderFactory.getSupportType().length == 1 && batisExecutorCommandContextBuilderFactory.getSupportType()[0] == Object.class);
         defaultCommandContextBuilderFactories.put(batisExecutorCommandContextBuilderFactory.getExecutorInterface(), batisExecutorCommandContextBuilderFactory);
 
         commandContextBuilderFactoriesMap.put(Object.class, defaultCommandContextBuilderFactories);

@@ -6,7 +6,6 @@ import com.ktanx.jdbc.command.AbstractCommandExecutor;
 import com.ktanx.jdbc.command.CommandContext;
 import com.ktanx.jdbc.management.CommandTable;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -33,6 +32,12 @@ public abstract class AbstractSimpleCommandExecutor<T extends SimpleCommandExecu
     }
 
     @Override
+    public <E> T resultClass(Class<E> clazz) {
+        this.resultHandler = DefaultResultHandler.newInstance(clazz);
+        return (T) this;
+    }
+
+    @Override
     public <E> T resultHandler(ResultHandler<E> resultHandler) {
         this.resultHandler = resultHandler;
         return (T) this;
@@ -51,7 +56,7 @@ public abstract class AbstractSimpleCommandExecutor<T extends SimpleCommandExecu
         commandContext.setCommandType(CommandContext.CommandType.SELECT_OBJECT);
         Object result = this.persistExecutor.execute(commandContext);
         if (resultHandler != null) {
-            return resultHandler.handle(result);
+            return this.handleResult(result, resultHandler);
         }
         return result;
     }
@@ -61,13 +66,8 @@ public abstract class AbstractSimpleCommandExecutor<T extends SimpleCommandExecu
         CommandContext commandContext = this.commandContextBuilder.build(this.commandTable);
         commandContext.setCommandType(CommandContext.CommandType.SELECT_OBJECT_LIST);
         List<?> result = (List<?>) this.persistExecutor.execute(commandContext);
-        if (resultHandler != null && result != null) {
-            List resultList = new ArrayList<>();
-            for (Object obj : result) {
-                Object res = resultHandler.handle(obj);
-                resultList.add(res);
-            }
-            return resultList;
+        if (resultHandler != null) {
+            return this.handleResult(result, resultHandler);
         }
         return result;
     }
@@ -80,13 +80,7 @@ public abstract class AbstractSimpleCommandExecutor<T extends SimpleCommandExecu
         this.setNativeData();
         PageList<?> pageList = this.doPageList(pageNum, pageSize, CommandContext.CommandType.SELECT_OBJECT_LIST);
         if (this.resultHandler != null) {
-            PageList result = new PageList();
-            for (Object obj : pageList) {
-                Object res = resultHandler.handle(obj);
-                result.add(res);
-            }
-            result.setPager(pageList.getPager());
-            return result;
+            return this.handleResult(pageList, resultHandler);
         }
         return pageList;
     }

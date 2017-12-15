@@ -123,7 +123,7 @@ public class DefaultRowProcessor<T> implements JdbcRowProcessor<T> {
         } else {
             value = rs.getObject(index, requiredType);
         }
-        return value;
+        return (rs.wasNull() ? null : value);
     }
 
 }

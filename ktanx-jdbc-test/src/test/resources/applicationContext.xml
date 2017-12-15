@@ -12,9 +12,6 @@
     http://www.springframework.org/schema/task
     http://www.springframework.org/schema/task/spring-task-3.0.xsd">
 
-    <!--<context:component-scan base-package="com.dexcoder.assistant.*">-->
-    <!--</context:component-scan>-->
-
     <!-- 启用@Aspect支持 -->
     <aop:aspectj-autoproxy/>
 
@@ -23,11 +20,6 @@
 
     <task:annotation-driven/>
 
-    <!--<bean id="dynamicDataSource" class="com.dexcoder.dalspring.datasource.DynamicDataSource">-->
-    <!--<property name="dsConfigFile" value="dynamic-ds.xml"/>-->
-    <!--</bean>-->
-
-    <!--<bean id="dynamicDsInterceptor" class="com.dexcoder.dalspring.datasource.DynamicDsInterceptor"></bean>-->
     <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
           destroy-method="close">
         <property name="driverClassName">
@@ -55,15 +47,6 @@
             <value>${maxWait}</value>
         </property>
     </bean>
-
-    <!--<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">-->
-    <!--<property name="dataSource">-->
-    <!--<ref bean="dataSource"/>-->
-    <!--</property>-->
-    <!--<property name="fetchSize">-->
-    <!--<value>${jdbcTemplate.fetchSize}</value>-->
-    <!--</property>-->
-    <!--</bean>-->
 
     <bean id="jdbcDao" class="com.ktanx.jdbc.springjdbc.persist.JdbcTemplateDaoImpl">
         <property name="dataSource" ref="dataSource"/>

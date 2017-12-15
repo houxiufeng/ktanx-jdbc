@@ -1,8 +1,9 @@
 package com.ktanx.jdbc.dbutils.config;
 
 import com.ktanx.jdbc.config.AbstractJdbcEngineConfig;
-import com.ktanx.jdbc.dbutils.persist.DbUtilsPersistExecutor;
+import com.ktanx.jdbc.dbutils.persist.DbUtilsPersistExecutorFactory;
 import com.ktanx.jdbc.exception.KtanxJdbcException;
+import com.ktanx.jdbc.persist.PersistExecutorFactory;
 import org.apache.commons.lang3.StringUtils;
 
 import java.sql.SQLException;
@@ -16,9 +17,8 @@ public class DbUtilsEngineConfigImpl extends AbstractJdbcEngineConfig {
     protected void doInit() {
 
         if (this.defaultPersistExecutor == null) {
-            DbUtilsPersistExecutor dbUtilsPersistExecutor = new DbUtilsPersistExecutor();
-            dbUtilsPersistExecutor.setDataSource(getDataSource());
-            this.defaultPersistExecutor = dbUtilsPersistExecutor;
+            PersistExecutorFactory persistExecutorFactory = new DbUtilsPersistExecutorFactory(getDataSource());
+            this.defaultPersistExecutor = persistExecutorFactory.getExecutor();
         }
 
         if (StringUtils.isBlank(this.dialect)) {

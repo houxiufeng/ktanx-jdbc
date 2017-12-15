@@ -4,6 +4,7 @@ import com.ktanx.common.bean.BeanKit;
 import com.ktanx.common.model.PageList;
 import com.ktanx.common.model.Pageable;
 import com.ktanx.jdbc.command.CommandContext;
+import com.ktanx.jdbc.command.simple.DefaultResultHandler;
 import com.ktanx.jdbc.management.CommandField;
 import com.ktanx.jdbc.management.MappingCache;
 
@@ -13,6 +14,11 @@ import java.util.List;
  * Created by liyd on 17/4/12.
  */
 public class SelectImpl<T extends Object> extends AbstractConditionBuilder<Select<T>> implements Select<T> {
+
+    /**
+     * 是否强制转换结果到实体模型
+     */
+    protected boolean isForceResultToModel = false;
 
     public Select<T> include(String... fields) {
         this.commandTable.addIncludeFields(fields);
@@ -86,6 +92,12 @@ public class SelectImpl<T extends Object> extends AbstractConditionBuilder<Selec
         return this;
     }
 
+    @Override
+    public Select<T> forceResultToModel() {
+        this.isForceResultToModel = true;
+        return this;
+    }
+
     public long count() {
         CommandContext commandContext = this.commandContextBuilder.build(this.commandTable);
         String countCommand = this.pageHandler.getCountCommand(commandContext.getCommand(), this.dialect);
@@ -98,13 +110,21 @@ public class SelectImpl<T extends Object> extends AbstractConditionBuilder<Selec
     public Object objectResult() {
         CommandContext commandContext = this.commandContextBuilder.build(this.commandTable);
         commandContext.setCommandType(CommandContext.CommandType.SELECT_OBJECT);
-        return this.persistExecutor.execute(commandContext);
+        Object result = this.persistExecutor.execute(commandContext);
+        if (isForceResultToModel) {
+            return this.handleResult(result, DefaultResultHandler.newInstance(this.type));
+        }
+        return result;
     }
 
     public List<?> objectList() {
         CommandContext commandContext = this.commandContextBuilder.build(this.commandTable);
         commandContext.setCommandType(CommandContext.CommandType.SELECT_OBJECT_LIST);
-        return (List<?>) this.persistExecutor.execute(commandContext);
+        List<?> result = (List<?>) this.persistExecutor.execute(commandContext);
+        if (isForceResultToModel) {
+            return this.handleResult(result, DefaultResultHandler.newInstance(this.type));
+        }
+        return result;
     }
 
     @Override
@@ -114,7 +134,11 @@ public class SelectImpl<T extends Object> extends AbstractConditionBuilder<Selec
 
     @Override
     public PageList<?> objectPageList(int pageNum, int pageSize) {
-        return this.doPageList(pageNum, pageSize, CommandContext.CommandType.SELECT_OBJECT_LIST);
+        PageList<?> pageList = this.doPageList(pageNum, pageSize, CommandContext.CommandType.SELECT_OBJECT_LIST);
+        if (isForceResultToModel) {
+            return this.handleResult(pageList, DefaultResultHandler.newInstance(this.type));
+        }
+        return pageList;
     }
 
     @Override

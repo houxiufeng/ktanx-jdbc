@@ -1,6 +1,6 @@
 package com.ktanx.jdbc.springjdbc.persist;
 
-import com.ktanx.jdbc.exception.KtanxJdbcException;
+import com.ktanx.common.spring.Assert;
 import com.ktanx.jdbc.persist.PersistExecutor;
 import com.ktanx.jdbc.persist.PersistExecutorFactory;
 import org.springframework.jdbc.core.JdbcOperations;
@@ -29,10 +29,8 @@ public class JdbcTemplatePersistExecutorFactory implements PersistExecutorFactor
 
     public PersistExecutor getExecutor() {
         if (this.persistExecutor == null) {
+            Assert.notNull(this.jdbcOperations);
             JdbcTemplatePersistExecutor jdbcTemplatePersistExecutor = new JdbcTemplatePersistExecutor();
-            if (this.jdbcOperations == null) {
-                throw new KtanxJdbcException("jdbcOperations不能为空");
-            }
             jdbcTemplatePersistExecutor.setJdbcOperations(this.jdbcOperations);
             this.persistExecutor = jdbcTemplatePersistExecutor;
         }

@@ -42,7 +42,7 @@ public abstract class AbstractConditionBuilder<T extends ConditionBuilder<T>> ex
         return (T) this;
     }
 
-    public T where(String field, String operator, Object[] values) {
+    public T where(String field, String operator, Object... values) {
         CommandField commandField = CommandField.builder()
                 .logicalOperator("where")
                 .name(field)
@@ -64,7 +64,7 @@ public abstract class AbstractConditionBuilder<T extends ConditionBuilder<T>> ex
         return this.condition(field, value == null ? "is" : "=", value);
     }
 
-    public T condition(String field, String operator, Object[] values) {
+    public T condition(String field, String operator, Object... values) {
         CommandField commandField = CommandField.builder()
                 .name(field)
                 .fieldOperator(operator)
@@ -137,7 +137,7 @@ public abstract class AbstractConditionBuilder<T extends ConditionBuilder<T>> ex
         return (T) this;
     }
 
-    public T and(String field, String operator, Object[] values) {
+    public T and(String field, String operator, Object... values) {
         CommandField commandField = CommandField.builder()
                 .logicalOperator("and")
                 .name(field)
@@ -169,7 +169,7 @@ public abstract class AbstractConditionBuilder<T extends ConditionBuilder<T>> ex
         return this.or(field, values == null ? "is" : "=", values);
     }
 
-    public T or(String field, String operator, Object[] values) {
+    public T or(String field, String operator, Object... values) {
         CommandField commandField = CommandField.builder()
                 .logicalOperator("or")
                 .name(field)

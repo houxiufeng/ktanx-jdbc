@@ -28,6 +28,15 @@ public interface SimpleCommandExecutor<T extends SimpleCommandExecutor<T>> exten
     T parameters(Object[] parameters);
 
     /**
+     * 返回结果类对象
+     *
+     * @param clazz
+     * @param <E>
+     * @return
+     */
+    <E> T resultClass(Class<E> clazz);
+
+    /**
      * 结果处理器
      *
      * @param resultHandler
