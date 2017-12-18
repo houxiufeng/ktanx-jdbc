@@ -53,7 +53,7 @@
 
 ### 添加依赖 二选一
 
-spring jdbc：
+使用 spring jdbc：
 
     <dependency>
         <groupId>com.ktanx</groupId>
@@ -61,7 +61,7 @@ spring jdbc：
         <version>${version}</version>
     </dependency>
     
-dbutils：
+使用 dbutils：
 
     <dependency>
         <groupId>com.ktanx</groupId>
@@ -69,9 +69,17 @@ dbutils：
         <version>${version}</version>
     </dependency>
 
-### 在spring中声明bean
+### 根据选择使用的实现在spring中声明bean
+
+使用 spring jdbc：
 
     <bean id="jdbcDao" class="com.ktanx.jdbc.springjdbc.persist.JdbcTemplateDaoImpl">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+    
+使用 dbutils：
+
+    <bean id="jdbcDao" class="com.ktanx.jdbc.dbutils.persist.DbUtilsDaoImpl">
         <property name="dataSource" ref="dataSource"/>
     </bean>
     
