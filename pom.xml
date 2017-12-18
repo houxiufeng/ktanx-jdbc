@@ -8,6 +8,26 @@
     <artifactId>ktanx-jdbc-build</artifactId>
     <packaging>pom</packaging>
     <version>1.0.2</version>
+    <name>ktanx-jdbc</name>
+    <description>Ktanx is a java jdbc development kit.</description>
+    <url>http://www.ktanx.com/</url>
+    <licenses>
+        <license>
+            <name>The Apache Software License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+        </license>
+    </licenses>
+    <developers>
+        <developer>
+            <name>selfly</name>
+            <email>selfly@foxmail.com</email>
+        </developer>
+    </developers>
+    <scm>
+        <connection>scm:git:git@github.com:selfly/ktanx-jdbc.git</connection>
+        <developerConnection>scm:git:git@github.com:selfly/ktanx-jdbc.git</developerConnection>
+        <url>https://github.com/selfly/ktanx-jdbc</url>
+    </scm>
     <modules>
         <module>ktanx-jdbc</module>
         <module>ktanx-jdbc-springjdbc</module>
@@ -127,19 +147,31 @@
                             </execution>
                         </executions>
                     </plugin>
+                    <!-- GPG -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-gpg-plugin</artifactId>
+                        <version>1.5</version>
+                        <executions>
+                            <execution>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>sign</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
                 </plugins>
             </build>
             <distributionManagement>
-                <repository>
-                    <id>releases</id>
-                    <name>Nexus Release Repository</name>
-                    <url>http://116.62.232.186:8081/nexus/content/repositories/releases/</url>
-                </repository>
                 <snapshotRepository>
-                    <id>snapshots</id>
-                    <name>Nexus Snapshot Repository</name>
-                    <url>http://116.62.232.186:8081/nexus/content/repositories/snapshots/</url>
+                    <id>oss</id>
+                    <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
                 </snapshotRepository>
+                <repository>
+                    <id>oss</id>
+                    <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+                </repository>
             </distributionManagement>
         </profile>
     </profiles>

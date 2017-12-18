@@ -51,11 +51,21 @@
 
 ## 使用
 
-### 添加依赖
+### 添加依赖 二选一
+
+spring jdbc：
 
     <dependency>
         <groupId>com.ktanx</groupId>
         <artifactId>ktanx-jdbc-springjdbc</artifactId>
+        <version>${version}</version>
+    </dependency>
+    
+dbutils：
+
+    <dependency>
+        <groupId>com.ktanx</groupId>
+        <artifactId>ktanx-jdbc-dbutils</artifactId>
         <version>${version}</version>
     </dependency>
 
