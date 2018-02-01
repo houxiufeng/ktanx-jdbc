@@ -91,6 +91,24 @@ public interface ConditionBuilder<C extends ConditionBuilder<C>> extends EntityC
     C conditionEntity(Object entity);
 
     /**
+     * and 属性where条件
+     *
+     * @param entity
+     * @return
+     */
+    C andConditionEntity(Object entity);
+
+    /**
+     * 拼装entity属性条件
+     *
+     * @param entity
+     * @param wholeLogicalOperator 全局操作符
+     * @param fieldLogicalOperator 属性操作符
+     * @return
+     */
+    C conditionEntity(Object entity, String wholeLogicalOperator, String fieldLogicalOperator);
+
+    /**
      * id条件
      *
      * @param value

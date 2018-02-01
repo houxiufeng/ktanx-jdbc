@@ -7,7 +7,7 @@
     <groupId>com.ktanx</groupId>
     <artifactId>ktanx-jdbc-build</artifactId>
     <packaging>pom</packaging>
-    <version>1.0.2</version>
+    <version>1.0.3</version>
     <name>ktanx-jdbc</name>
     <description>Ktanx is a java jdbc development kit.</description>
     <url>http://www.ktanx.com/</url>

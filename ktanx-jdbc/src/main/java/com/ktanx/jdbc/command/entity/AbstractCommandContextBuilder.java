@@ -251,9 +251,14 @@ public abstract class AbstractCommandContextBuilder implements CommandContextBui
         List<Object> paramValues = new ArrayList<Object>();
         for (CommandField commandField : whereFields) {
 
-            //单独where or and 的情况
+            //在前面处理，有单独where or and 的情况
             if (StringUtils.isNotBlank(commandField.getLogicalOperator())) {
-                whereCommand.append(commandField.getLogicalOperator()).append(" ");
+                //没有where不管如何and or等操作符都换成where
+                if (whereCommand.length() < 5) {
+                    whereCommand.append("where ");
+                } else {
+                    whereCommand.append(commandField.getLogicalOperator()).append(" ");
+                }
             }
             //只有where or and 的情况
             if (StringUtils.isBlank(commandField.getName())) {

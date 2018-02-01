@@ -5,6 +5,7 @@ import com.ktanx.jdbc.annotation.Transient;
 import com.ktanx.jdbc.command.AbstractCommandExecutor;
 import com.ktanx.jdbc.management.CommandField;
 import com.ktanx.jdbc.management.MappingCache;
+import org.apache.commons.lang3.StringUtils;
 
 import java.io.Serializable;
 import java.util.Map;
@@ -77,6 +78,16 @@ public abstract class AbstractConditionBuilder<T extends ConditionBuilder<T>> ex
     }
 
     public T conditionEntity(Object entity) {
+        return conditionEntity(entity, null, "and");
+    }
+
+    @Override
+    public T andConditionEntity(Object entity) {
+        return conditionEntity(entity, "and", "and");
+    }
+
+    @Override
+    public T conditionEntity(Object entity, String wholeLogicalOperator, String fieldLogicalOperator) {
 
         Map<String, Object> beanPropMap = ClassUtils.getSelfBeanPropMap(entity, Transient.class);
 
@@ -88,8 +99,17 @@ public abstract class AbstractConditionBuilder<T extends ConditionBuilder<T>> ex
                 continue;
             }
 
+            if (count == 1 && StringUtils.isNotBlank(wholeLogicalOperator)) {
+                CommandField commandField = CommandField.builder()
+                        .logicalOperator(wholeLogicalOperator)
+                        .type(CommandField.Type.WHERE_FIELD)
+                        .orig(CommandField.Orig.ENTITY)
+                        .build();
+                this.commandTable.addWhereField(commandField);
+            }
+
             CommandField commandField = CommandField.builder()
-                    .logicalOperator(count > 1 ? "and" : null)
+                    .logicalOperator(count > 1 ? fieldLogicalOperator : null)
                     .name(entry.getKey())
                     .fieldOperator("=")
                     .value(entry.getValue())

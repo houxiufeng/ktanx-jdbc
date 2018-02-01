@@ -456,6 +456,56 @@ public class JdbcTemplateDaoImplTest extends BaseTest {
         Assert.assertNotNull(users);
     }
 
+
+    @Test
+    public void select15() {
+
+
+        Select<User> select = jdbcDao.createSelect(User.class);
+        select.where("userAge", 5);
+
+        User user = new User();
+        user.setUserId(10L);
+        user.setLoginName("liyd");
+        select.andConditionEntity(user);
+
+        List<User> users = select.list();
+        Assert.assertNotNull(users);
+    }
+
+
+    @Test
+    public void select16() {
+
+
+        Select<User> select = jdbcDao.createSelect(User.class);
+        //自动处理where情况
+        select.and("userAge", 15);
+
+        select.and("userId", 10L);
+
+        List<User> users = select.list();
+        Assert.assertNotNull(users);
+    }
+
+
+    @Test
+    public void select17() {
+
+
+        Select<User> select = jdbcDao.createSelect(User.class);
+        select.where("userAge", 5);
+
+        User user = new User();
+        user.setUserId(10L);
+        user.setLoginName("liyd");
+        select.conditionEntity(user, "or", "or");
+
+        List<User> users = select.list();
+        Assert.assertNotNull(users);
+    }
+
+
     @Test
     public void groupByAndOrderBy() {
         User user = new User();
