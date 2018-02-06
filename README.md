@@ -51,7 +51,7 @@
 
 1.拼装动态sql时，where问题的自动处理
 
-2.拼装动态sql时，使用andConditionEntity方法
+2.添加andConditionEntity方法
 
 更多信息请看[这里](https://www.ktanx.com/ktxjdbc/p/5056)
 
